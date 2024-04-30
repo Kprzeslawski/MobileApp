@@ -1,5 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
+    kotlin("plugin.lombok") version "1.8.10"
+    id("io.freefair.lombok") version "5.3.0"
 }
 
 android {
@@ -45,4 +47,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    compileOnly(libs.lombok)
+    annotationProcessor(libs.lombok)
+
 }

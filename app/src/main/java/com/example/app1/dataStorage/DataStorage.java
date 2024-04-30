@@ -1,5 +1,7 @@
 package com.example.app1.dataStorage;
 
+import lombok.Data;
+
 public class DataStorage {
 
     private static DataStorage instance;
@@ -11,7 +13,7 @@ public class DataStorage {
         return instance;
     }
 
-
+    private String data;
 
 
 }
