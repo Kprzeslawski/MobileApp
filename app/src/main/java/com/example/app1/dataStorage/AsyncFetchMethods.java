@@ -5,13 +5,13 @@ import java.net.URL;
 
 public class AsyncFetchMethods {
 
+    public static final String baseConnection = "http://192.168.137.1:8080/api";
     public static void fetchTest(){
         Thread thread = new Thread(new Runnable() {
-
             @Override
             public void run() {
                 try {
-                    URL url = new URL("http://192.168.137.1:8080/api/player/test");
+                    URL url = new URL(baseConnection + "/player/test");
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("GET");
                     conn.connect();
