@@ -8,6 +8,8 @@ android {
     namespace = "com.example.app1"
     compileSdk = 34
 
+    useLibrary("org.apache.http.legacy")
+
     defaultConfig {
         applicationId = "com.example.app1"
         minSdk = 27

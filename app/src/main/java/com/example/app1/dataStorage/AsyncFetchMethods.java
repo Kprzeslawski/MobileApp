@@ -1,5 +1,7 @@
 package com.example.app1.dataStorage;
 
+import org.apache.http.client.HttpClient;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -23,5 +25,19 @@ public class AsyncFetchMethods {
             }
         });
         thread.start();
+    }
+
+    String sampleApiRequest() throws Exception {
+        HttpClient client;
+//        H
+//        HttpClient client = HttpClient.newHttpClient();
+//        HttpRequest request = HttpRequest.newBuilder()
+//                .uri(URI.create("https://jsonplaceholder.typicode.com/todos"))
+//                .build();
+//
+//        HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
+//
+//        return response.body();
+        return null;
     }
 }
