@@ -38,26 +38,6 @@ public class InventoryFragment extends Fragment {
         InventoryFragment fragment = new InventoryFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
-        Thread thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    URL url = new URL("http://192.168.137.1:8080/api/player/test");
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setRequestMethod("GET");
-                    conn.connect();
-                    int responseCode = conn.getResponseCode();
-                    System.out.println("RESPONSE CODE: "+ responseCode);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        thread.start();
-
-
         return fragment;
     }
 
