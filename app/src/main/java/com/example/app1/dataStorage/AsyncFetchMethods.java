@@ -2,6 +2,8 @@ package com.example.app1.dataStorage;
 
 import org.apache.http.client.HttpClient;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -20,7 +22,18 @@ public class AsyncFetchMethods {
 
                     int responseCode = connection.getResponseCode();
                     if (responseCode == HttpURLConnection.HTTP_OK) {
-                        System.out.println("DATA: " + (String) connection.getContent());
+                        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                        String inputLine;
+                        StringBuilder response = new StringBuilder();
+
+                        while ((inputLine = in.readLine()) != null) {
+                            response.append(inputLine);
+                        }
+                        in.close();
+
+                        String jsonResponse = response.toString();
+
+                        System.out.println("DATA: " + jsonResponse);
                     } else {
                         System.out.println("Failed to fetch data. Status code: " + responseCode);
                     }
