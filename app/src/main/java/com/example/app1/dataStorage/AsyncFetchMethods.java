@@ -14,11 +14,17 @@ public class AsyncFetchMethods {
             public void run() {
                 try {
                     URL url = new URL(baseConnection + "/player/test");
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setRequestMethod("GET");
-                    conn.connect();
-                    int responseCode = conn.getResponseCode();
-                    System.out.println("RESPONSE CODE: "+ responseCode);
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("GET");
+                    connection.connect();
+
+                    int responseCode = connection.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        System.out.println("DATA: " + (String) connection.getContent());
+                    } else {
+                        System.out.println("Failed to fetch data. Status code: " + responseCode);
+                    }
+                    connection.disconnect();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
