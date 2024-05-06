@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.app1.dataStorage.AsyncFetchMethods;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -37,6 +39,7 @@ public class InventoryFragment extends Fragment {
     public static InventoryFragment newInstance() {
         InventoryFragment fragment = new InventoryFragment();
         Bundle args = new Bundle();
+        AsyncFetchMethods.fetchTest();
         fragment.setArguments(args);
         return fragment;
     }
