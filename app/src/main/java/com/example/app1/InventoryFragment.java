@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.app1.dataStorage.AsyncFetchMethods;
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link InventoryFragment#newInstance} factory method to
@@ -35,7 +33,6 @@ public class InventoryFragment extends Fragment {
     public static InventoryFragment newInstance() {
         InventoryFragment fragment = new InventoryFragment();
         Bundle args = new Bundle();
-        AsyncFetchMethods.fetchLocations();
         fragment.setArguments(args);
         return fragment;
     }
