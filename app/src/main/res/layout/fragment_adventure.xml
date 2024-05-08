@@ -12,4 +12,10 @@
         android:layout_height="match_parent"
         android:text="@string/hello_blank_fragment" />
 
+    <TableLayout
+        android:id="@+id/table_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </TableLayout>
+
 </FrameLayout>
