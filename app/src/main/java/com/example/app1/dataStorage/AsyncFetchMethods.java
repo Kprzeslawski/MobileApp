@@ -5,8 +5,6 @@ import com.example.app1.dataStorage.dataTypes.Location;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.apache.http.client.HttpClient;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -127,19 +125,5 @@ public class AsyncFetchMethods {
             }
         });
         thread.start();
-    }
-
-    String sampleApiRequest() throws Exception {
-        HttpClient client;
-//        H
-//        HttpClient client = HttpClient.newHttpClient();
-//        HttpRequest request = HttpRequest.newBuilder()
-//                .uri(URI.create("https://jsonplaceholder.typicode.com/todos"))
-//                .build();
-//
-//        HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-//
-//        return response.body();
-        return null;
     }
 }
