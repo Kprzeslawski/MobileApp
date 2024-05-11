@@ -106,37 +106,28 @@ public class AdventureFragment extends Fragment {
 
 
         ConstraintLayout par = v.findViewById(R.id.adv_list_parent);
+        int prev_id = R.id.list_elem_1;
 
-        ConstraintLayout rec = createNewTabElem("test");
-        ConstraintLayout rec2 = createNewTabElem("test2");
-        par.addView(rec);
-        par.addView(rec2);
+        for(int i=0;i<15;i++){
+            ConstraintLayout rec = createNewTabElem("test"+i);
+            par.addView(rec);
 
-        ConstraintSet res_set =  new ConstraintSet();
-        res_set.clone(par);
+            ConstraintSet res_set =  new ConstraintSet();
+            res_set.clone(par);
 
-        res_set.connect(
-                rec.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0
-        );
-        res_set.connect(
-                rec.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0
-        );
-        res_set.connect(
-                rec.getId(), ConstraintSet.TOP, R.id.list_elem_1, ConstraintSet.BOTTOM, 0
-        );
+            res_set.connect(
+                    rec.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0
+            );
+            res_set.connect(
+                    rec.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0
+            );
+            res_set.connect(
+                    rec.getId(), ConstraintSet.TOP, prev_id, ConstraintSet.BOTTOM, 0
+            );
+            res_set.applyTo(par);
 
-        res_set.connect(
-                rec2.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0
-        );
-        res_set.connect(
-                rec2.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0
-        );
-        res_set.connect(
-                rec2.getId(), ConstraintSet.TOP, rec.getId(), ConstraintSet.BOTTOM, 0
-        );
-
-        res_set.applyTo(par);
-
+            prev_id = rec.getId();
+        }
 
 
 //        TextView tv_rec = new TextView(requireContext());
