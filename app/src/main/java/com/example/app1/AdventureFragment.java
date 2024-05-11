@@ -12,6 +12,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
 
+import com.example.app1.dataStorage.AsyncFetchMethods;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -86,48 +88,23 @@ public class AdventureFragment extends Fragment {
     public void init(View v) {
 
         ConstraintLayout par = v.findViewById(R.id.adv_list_parent);
-        int prev_id = ConstraintSet.PARENT_ID;
+        final int[] prev_id = {ConstraintSet.PARENT_ID};
 
-        for(int i=0;i<15;i++){
-            ConstraintLayout rec = createNewTabElem("test"+i);
+        AsyncFetchMethods.fetchLocations(location -> {
+            ConstraintLayout rec = createNewTabElem(location.getName());
             par.addView(rec);
 
             ConstraintSet res_set =  new ConstraintSet();
             res_set.clone(par);
 
-            res_set.connect(
-                    rec.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 10
-            );
-            res_set.connect(
-                    rec.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 10
-            );
-            if(prev_id != ConstraintSet.PARENT_ID)
-                res_set.connect(rec.getId(), ConstraintSet.TOP, prev_id, ConstraintSet.BOTTOM, 10);
-            else
-                res_set.connect(rec.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 10);
-
+            res_set.connect(rec.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 10);
+            res_set.connect(rec.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 10);
+            if(prev_id[0] != ConstraintSet.PARENT_ID) res_set.connect(rec.getId(), ConstraintSet.TOP, prev_id[0], ConstraintSet.BOTTOM, 10);
+            else res_set.connect(rec.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 10);
 
             res_set.applyTo(par);
-
-            prev_id = rec.getId();
-        }
-//        AsyncFetchMethods.fetchLocations(location -> {
-//            TableRow tbrow = new TableRow(requireContext());
-//
-//            TextView t1v = new TextView(requireContext());
-//            t1v.setText(location.getName());
-//            t1v.setTextColor(Color.WHITE);
-//            t1v.setGravity(Gravity.CENTER);
-//            tbrow.addView(t1v);
-//
-//            TextView t2v = new TextView(requireContext());
-//            t2v.setText(location.getMin_lv().toString());
-//            t2v.setTextColor(Color.WHITE);
-//            t2v.setGravity(Gravity.CENTER);
-//            tbrow.addView(t2v);
-//
-//            stk.addView(tbrow);
-//        },getActivity());
+            prev_id[0] = rec.getId();
+        },getActivity());
 
     }
 
