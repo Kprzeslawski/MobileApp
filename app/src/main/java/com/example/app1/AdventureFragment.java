@@ -91,7 +91,7 @@ public class AdventureFragment extends Fragment {
         final int[] prev_id = {ConstraintSet.PARENT_ID};
 
         AsyncFetchMethods.fetchLocations(location -> {
-            ConstraintLayout rec = createNewTabElem(location.getName());
+            ConstraintLayout rec = createNewTabElem(location.getName() + "      Required level: " + location.getMin_lv().toString());
             par.addView(rec);
 
             ConstraintSet res_set =  new ConstraintSet();
