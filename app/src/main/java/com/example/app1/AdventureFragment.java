@@ -43,7 +43,7 @@ public class AdventureFragment extends Fragment {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 160
         ));
-        record.setBackgroundColor(Color.CYAN);
+        record.setBackgroundResource(R.drawable.rounded_corner);
 
         //create and add textview
         TextView textView = new TextView(requireContext());
@@ -85,28 +85,8 @@ public class AdventureFragment extends Fragment {
 
     public void init(View v) {
 
-//        <androidx.constraintlayout.widget.ConstraintLayout
-//        android:id="@+id/list_elem_2"
-//        android:layout_width="0dp"
-//        android:layout_height="80dp"
-//        app:layout_constraintLeft_toLeftOf="parent"
-//        app:layout_constraintRight_toRightOf="parent"
-//        app:layout_constraintTop_toBottomOf="@+id/list_elem_1">
-//            <TextView
-//        android:id="@+id/rec2"
-//        android:layout_width="0dp"
-//        android:layout_height="0dp"
-//        android:textColor="@color/white"
-//        android:text="TextView"
-//        app:layout_constraintBottom_toBottomOf="parent"
-//        app:layout_constraintEnd_toEndOf="parent"
-//        app:layout_constraintStart_toStartOf="parent"
-//        app:layout_constraintTop_toTopOf="parent" />
-//        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
         ConstraintLayout par = v.findViewById(R.id.adv_list_parent);
-        int prev_id = R.id.list_elem_1;
+        int prev_id = ConstraintSet.PARENT_ID;
 
         for(int i=0;i<15;i++){
             ConstraintLayout rec = createNewTabElem("test"+i);
@@ -116,39 +96,21 @@ public class AdventureFragment extends Fragment {
             res_set.clone(par);
 
             res_set.connect(
-                    rec.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0
+                    rec.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 10
             );
             res_set.connect(
-                    rec.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0
+                    rec.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 10
             );
-            res_set.connect(
-                    rec.getId(), ConstraintSet.TOP, prev_id, ConstraintSet.BOTTOM, 0
-            );
+            if(prev_id != ConstraintSet.PARENT_ID)
+                res_set.connect(rec.getId(), ConstraintSet.TOP, prev_id, ConstraintSet.BOTTOM, 10);
+            else
+                res_set.connect(rec.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 10);
+
+
             res_set.applyTo(par);
 
             prev_id = rec.getId();
         }
-
-
-//        TextView tv_rec = new TextView(requireContext());
-//        tv_rec.setText("Location Name");
-//        tv_rec.setTextColor(Color.WHITE);
-//
-//
-//
-//        TableLayout stk = (TableLayout) v.findViewById(R.id.table_main);
-//        TableRow tbrow0 = new TableRow(requireContext());
-//
-//        TextView tv0 = new TextView(requireContext());
-//        tv0.setText("Location Name");
-//        tv0.setTextColor(Color.WHITE);
-//        tbrow0.addView(tv0);
-//        TextView tv1 = new TextView(requireContext());
-//        tv1.setText("Requied Level");
-//        tv1.setTextColor(Color.WHITE);
-//        tbrow0.addView(tv1);
-//        stk.addView(tbrow0);
-
 //        AsyncFetchMethods.fetchLocations(location -> {
 //            TableRow tbrow = new TableRow(requireContext());
 //
