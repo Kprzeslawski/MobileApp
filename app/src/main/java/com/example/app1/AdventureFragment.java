@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -35,40 +36,51 @@ public class AdventureFragment extends Fragment {
         return fragment;
     }
     public ConstraintLayout createNewTabElem(String name){
-
-        ConstraintLayout rec = new ConstraintLayout(requireContext());
-        rec.setId(View.generateViewId());
-        rec.setLayoutParams(new ConstraintLayout.LayoutParams(
+        //create element
+        ConstraintLayout record = new ConstraintLayout(requireContext());
+        record.setId(View.generateViewId());
+        record.setLayoutParams(new ConstraintLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 160
         ));
+        record.setBackgroundColor(Color.CYAN);
 
-        TextView tv_rec = new TextView(requireContext());
-        tv_rec.setId(View.generateViewId());
-        tv_rec.setText(name);
-        tv_rec.setTextColor(Color.WHITE);
-        rec.addView(tv_rec);
+        //create and add textview
+        TextView textView = new TextView(requireContext());
+        textView.setId(View.generateViewId());
+        textView.setText(name);
+        textView.setTextColor(Color.WHITE);
+        record.addView(textView);
 
-        rec.setBackgroundColor(Color.CYAN);
+        //create and add btn1
+        ImageButton imageButton = new ImageButton(requireContext());
+        imageButton.setId(View.generateViewId());
+        imageButton.setLayoutParams(new ConstraintLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT));
+        imageButton.setImageResource(R.drawable.more);
+        record.addView(imageButton);
 
+        //create and add btn2
+        ImageButton imageButton2 = new ImageButton(requireContext());
+        imageButton2.setId(View.generateViewId());
+        imageButton2.setLayoutParams(new ConstraintLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT));
+        imageButton2.setImageResource(R.drawable.adventure);
+        record.addView(imageButton2);
+
+        //setup positions
         ConstraintSet res_set =  new ConstraintSet();
-        res_set.clone(rec);
+        res_set.clone(record);
 
-        res_set.connect(
-                tv_rec.getId(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START, 0
-        );
-        res_set.connect(
-                tv_rec.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, 0
-        );
-        res_set.connect(
-                tv_rec.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 0
-        );
-        res_set.connect(
-                tv_rec.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0
-        );
+        res_set.connect(textView.getId(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START, 0);
+        res_set.connect(textView.getId(), ConstraintSet.END, imageButton.getId(), ConstraintSet.START, 0);
+        res_set.connect(textView.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 0);
+        res_set.connect(textView.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0);
 
-        res_set.applyTo(rec);
-        return rec;
+        res_set.connect(imageButton.getId(),ConstraintSet.END,imageButton2.getId(),ConstraintSet.START,0);
+
+        res_set.connect(imageButton2.getId(),ConstraintSet.END,ConstraintSet.PARENT_ID,ConstraintSet.END,0);
+
+        res_set.applyTo(record);
+        return record;
     }
 
     public void init(View v) {
