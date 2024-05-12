@@ -44,6 +44,13 @@ public class InventoryFragment extends Fragment {
 
         AsyncFetchMethods.fetchHero(hero -> {
             ((TextView) v.findViewById(R.id.inv_frag_data_health)).setText("Health: " + hero.getStats().getHealth());
+            ((TextView) v.findViewById(R.id.inv_frag_data_attack_dmg)).setText("Attack damage: " + hero.getStats().getAttack_dmg());
+            ((TextView) v.findViewById(R.id.inv_frag_data_armor)).setText("Armor: " + hero.getStats().getArmor());
+            ((TextView) v.findViewById(R.id.inv_frag_data_defense)).setText("Defense: " + hero.getStats().getDef());
+            ((TextView) v.findViewById(R.id.inv_frag_data_power)).setText("Power: " + hero.getStats().getPow());
+            ((TextView) v.findViewById(R.id.inv_frag_data_agile)).setText("Agile: " + hero.getStats().getAgile());
+            ((TextView) v.findViewById(R.id.inv_frag_data_c_rate)).setText("Critical rate: " + hero.getStats().getC_rate());
+            ((TextView) v.findViewById(R.id.inv_frag_data_c_dmg)).setText("Critical damage: " + hero.getStats().getC_dmg());
 
         },getActivity());
 
