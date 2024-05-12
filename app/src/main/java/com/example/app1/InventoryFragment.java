@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+
+import com.example.app1.dataStorage.AsyncFetchMethods;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +40,15 @@ public class InventoryFragment extends Fragment {
         return fragment;
     }
 
+    public void init(View v) {
+
+        AsyncFetchMethods.fetchHero(hero -> {
+            ((TextView) v.findViewById(R.id.inv_frag_data_health)).setText("Health: " + hero.getStats().getHealth());
+
+        },getActivity());
+
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +62,8 @@ public class InventoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_inventory, container, false);
+        View view = inflater.inflate(R.layout.fragment_inventory, container, false);
+        init(view);
+        return view;
     }
 }

@@ -146,7 +146,7 @@ public class AsyncFetchMethods {
             public void run() {
                 try {
                     DataStorage ds = DataStorage.getInstance();
-                    URL url = new URL(baseConnection + "/hero_stats/" + ds.getPlayerId() + "/" + ds.getHeroId());
+                    URL url = new URL(baseConnection + "/player/hero_stats/" + ds.getPlayerId() + "/" + ds.getHeroId());
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("GET");
                     connection.connect();
