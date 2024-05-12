@@ -109,17 +109,23 @@ public class AdventureFragment extends Fragment {
                 popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
 
                 ConstraintLayout par = popupView.findViewById(R.id.enemies_records_layout);
-                ConstraintLayout rec = createNewEnemyTabElem("TEST");
-                par.addView(rec);
+                final int[] prev_id = {ConstraintSet.PARENT_ID};
 
-                ConstraintSet res_set =  new ConstraintSet();
-                res_set.clone(par);
+                AsyncFetchMethods.fetchLocationEnemies(location.getName(),enemy -> {
+                    ConstraintLayout rec = createNewEnemyTabElem(enemy.getName());
+                    par.addView(rec);
 
-                res_set.connect(rec.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 10);
-                res_set.connect(rec.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 10);
-                res_set.connect(rec.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 10);
+                    ConstraintSet res_set =  new ConstraintSet();
+                    res_set.clone(par);
 
-                res_set.applyTo(par);
+                    res_set.connect(rec.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 10);
+                    res_set.connect(rec.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 10);
+                    if(prev_id[0] != ConstraintSet.PARENT_ID) res_set.connect(rec.getId(), ConstraintSet.TOP, prev_id[0], ConstraintSet.BOTTOM, 10);
+                    else res_set.connect(rec.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 10);
+
+                    res_set.applyTo(par);
+                    prev_id[0] = rec.getId();
+                },getActivity());
 
                 popupView.setOnTouchListener(new View.OnTouchListener() {
                     @Override

@@ -96,12 +96,12 @@ public class AsyncFetchMethods {
         thread.start();
     }
 
-    public static void fetchLocationEnemies(String locName,Consumer<Enemy> callback, Activity thread_f){
+    public static void fetchLocationEnemies(String locName, Consumer<Enemy> callback, Activity thread_f){
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    URL url = new URL(baseConnection + "/location_enemies/" + locName);
+                    URL url = new URL(baseConnection + "/player/location_enemies/" + locName);
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("GET");
                     connection.connect();
@@ -128,6 +128,7 @@ public class AsyncFetchMethods {
                         });
                     } else {
                         System.out.println("Failed to fetch data. Status code: " + responseCode);
+//                        System.out.println("Requested: " + url);
                     }
                     connection.disconnect();
                 } catch (Exception e) {
