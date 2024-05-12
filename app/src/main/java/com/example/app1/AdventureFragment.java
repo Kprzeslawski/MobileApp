@@ -17,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
 
 import com.example.app1.dataStorage.AsyncFetchMethods;
+import com.example.app1.dataStorage.dataTypes.Location;
 
 
 /**
@@ -41,7 +42,38 @@ public class AdventureFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-    public ConstraintLayout createNewTabElem(String name){
+
+    public ConstraintLayout createNewEnemyTabElem(String name){
+
+        //create element
+        ConstraintLayout record = new ConstraintLayout(requireContext());
+        record.setId(View.generateViewId());
+        record.setLayoutParams(new ConstraintLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                160
+        ));
+        record.setBackgroundResource(R.drawable.rounded_corner);
+
+        //create and add textview
+        TextView textView = new TextView(requireContext());
+        textView.setId(View.generateViewId());
+        textView.setText(name);
+        textView.setTextColor(Color.WHITE);
+        record.addView(textView);
+
+        ConstraintSet res_set =  new ConstraintSet();
+        res_set.clone(record);
+
+        //setup positions
+        res_set.connect(textView.getId(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START, 0);
+        res_set.connect(textView.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, 0);
+        res_set.connect(textView.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 0);
+        res_set.connect(textView.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0);
+
+        res_set.applyTo(record);
+        return record;
+    }
+    public ConstraintLayout createNewTabElem(Location location, String name){
         //create element
         ConstraintLayout record = new ConstraintLayout(requireContext());
         record.setId(View.generateViewId());
@@ -76,6 +108,19 @@ public class AdventureFragment extends Fragment {
                 final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
                 popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
 
+                ConstraintLayout par = popupView.findViewById(R.id.enemies_records_layout);
+                ConstraintLayout rec = createNewEnemyTabElem("TEST");
+                par.addView(rec);
+
+                ConstraintSet res_set =  new ConstraintSet();
+                res_set.clone(par);
+
+                res_set.connect(rec.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 10);
+                res_set.connect(rec.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 10);
+                res_set.connect(rec.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 10);
+
+                res_set.applyTo(par);
+
                 popupView.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
@@ -83,7 +128,12 @@ public class AdventureFragment extends Fragment {
                         return true;
                     }
                 });
-
+                ((ImageButton) popupView.findViewById(R.id.popup_location_close_button)).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popupWindow.dismiss();
+                    }
+                });
             }
         });
         record.addView(imageButton);
@@ -118,7 +168,7 @@ public class AdventureFragment extends Fragment {
         final int[] prev_id = {ConstraintSet.PARENT_ID};
 
         AsyncFetchMethods.fetchLocations(location -> {
-            ConstraintLayout rec = createNewTabElem(location.getName() + "      Required level: " + location.getMin_lv().toString());
+            ConstraintLayout rec = createNewTabElem(location, location.getName() + "      Required level: " + location.getMin_lv().toString());
             par.addView(rec);
 
             ConstraintSet res_set =  new ConstraintSet();
