@@ -2,6 +2,7 @@ package com.example.app1.dataStorage;
 
 import android.app.Activity;
 
+import com.example.app1.dataStorage.dataTypes.Enemy;
 import com.example.app1.dataStorage.dataTypes.InventoryResponse;
 import com.example.app1.dataStorage.dataTypes.Location;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -81,6 +82,48 @@ public class AsyncFetchMethods {
                             @Override
                             public void run(){
                                 locationList.forEach(callback);
+                            }
+                        });
+                    } else {
+                        System.out.println("Failed to fetch data. Status code: " + responseCode);
+                    }
+                    connection.disconnect();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+    }
+
+    public static void fetchLocationEnemies(String locName,Consumer<Enemy> callback, Activity thread_f){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL(baseConnection + "/location_enemies/" + locName);
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("GET");
+                    connection.connect();
+
+                    int responseCode = connection.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                        String inputLine;
+                        StringBuilder response = new StringBuilder();
+
+                        while ((inputLine = in.readLine()) != null) {
+                            response.append(inputLine);
+                        }
+                        in.close();
+
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        List<Enemy> enemyList = objectMapper.readValue(response.toString(), new TypeReference<List<Enemy>>() {});
+
+                        thread_f.runOnUiThread( new Runnable(){
+                            @Override
+                            public void run(){
+                                enemyList.forEach(callback);
                             }
                         });
                     } else {
