@@ -63,25 +63,25 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/inv_frag_data_healt"
+                            android:id="@+id/inv_frag_data_health"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/inv_frag_title_stats" />
 
                         <TextView
-                            android:id="@+id/inv_frag_data_atack_dmg"
+                            android:id="@+id/inv_frag_data_attack_dmg"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/inv_frag_data_healt" />
+                            app:layout_constraintTop_toBottomOf="@+id/inv_frag_data_health" />
 
                         <TextView
                             android:id="@+id/inv_frag_data_armor"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/inv_frag_data_atack_dmg" />
+                            app:layout_constraintTop_toBottomOf="@+id/inv_frag_data_attack_dmg" />
 
                         <TextView
                             android:id="@+id/inv_frag_data_defense"
@@ -98,7 +98,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/inv_frag_data_defense" />
 
                         <TextView
-                            android:id="@+id/inv_frag_data_aglie"
+                            android:id="@+id/inv_frag_data_agile"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             app:layout_constraintStart_toStartOf="parent"
@@ -109,7 +109,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/inv_frag_data_aglie" />
+                            app:layout_constraintTop_toBottomOf="@+id/inv_frag_data_agile" />
 
                         <TextView
                             android:id="@+id/inv_frag_data_c_dmg"
