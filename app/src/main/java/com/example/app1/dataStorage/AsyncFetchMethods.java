@@ -3,6 +3,7 @@ package com.example.app1.dataStorage;
 import android.app.Activity;
 
 import com.example.app1.dataStorage.dataTypes.Enemy;
+import com.example.app1.dataStorage.dataTypes.Hero;
 import com.example.app1.dataStorage.dataTypes.InventoryResponse;
 import com.example.app1.dataStorage.dataTypes.Location;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -124,6 +125,50 @@ public class AsyncFetchMethods {
                             @Override
                             public void run(){
                                 enemyList.forEach(callback);
+                            }
+                        });
+                    } else {
+                        System.out.println("Failed to fetch data. Status code: " + responseCode);
+//                        System.out.println("Requested: " + url);
+                    }
+                    connection.disconnect();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+    }
+
+    public static void fetchHero(Consumer<Hero> callback, Activity thread_f){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    DataStorage ds = DataStorage.getInstance();
+                    URL url = new URL(baseConnection + "/hero_stats/" + ds.getPlayerId() + "/" + ds.getHeroId());
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("GET");
+                    connection.connect();
+
+                    int responseCode = connection.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                        String inputLine;
+                        StringBuilder response = new StringBuilder();
+
+                        while ((inputLine = in.readLine()) != null) {
+                            response.append(inputLine);
+                        }
+                        in.close();
+
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        Hero hero = objectMapper.readValue(response.toString(), Hero.class);
+
+                        thread_f.runOnUiThread( new Runnable(){
+                            @Override
+                            public void run(){
+                                callback.accept(hero);
                             }
                         });
                     } else {
