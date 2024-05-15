@@ -63,11 +63,25 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/inv_frag_data_health"
+                            android:id="@+id/inv_frag_data_level"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/inv_frag_title_stats" />
+
+                        <TextView
+                            android:id="@+id/inv_frag_data_exp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/inv_frag_data_level"  />
+
+                        <TextView
+                            android:id="@+id/inv_frag_data_health"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/inv_frag_data_exp" />
 
                         <TextView
                             android:id="@+id/inv_frag_data_attack_dmg"
