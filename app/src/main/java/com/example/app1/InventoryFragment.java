@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.app1.dataStorage.AsyncFetchMethods;
+import com.example.app1.dataStorage.DataStorage;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,6 +56,10 @@ public class InventoryFragment extends Fragment {
             ((TextView) v.findViewById(R.id.inv_frag_data_c_dmg)).setText("Critical damage: " + hero.getStats().getC_dmg());
 
         },getActivity());
+
+        AsyncFetchMethods.fetchPlayerInventory(inventoryResponse -> {
+
+        }, DataStorage.getInstance().getPlayerId(), getActivity());
 
     }
 
