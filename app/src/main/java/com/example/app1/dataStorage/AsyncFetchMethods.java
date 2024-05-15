@@ -184,7 +184,7 @@ public class AsyncFetchMethods {
         thread.start();
     }
 
-    public static void fetchPlayerInventory(String playerId){
+    public static void fetchPlayerInventory(Consumer<InventoryResponse> callback, String playerId, Activity thread_f){
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -209,8 +209,13 @@ public class AsyncFetchMethods {
 
                         ObjectMapper objectMapper = new ObjectMapper();
                         InventoryResponse playerInventory = objectMapper.readValue(response.toString(), InventoryResponse.class);
-                        System.out.println("GOLD: " + playerInventory.getGold());
-                        System.out.println("N_ITEMS: " + playerInventory.getItems().size());
+
+                        thread_f.runOnUiThread( new Runnable(){
+                            @Override
+                            public void run(){
+                                callback.accept(playerInventory);
+                            }
+                        });
                     } else {
                         System.out.println("Failed to fetch data. Status code: " + responseCode);
                     }
