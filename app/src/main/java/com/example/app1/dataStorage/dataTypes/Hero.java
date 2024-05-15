@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class Hero {
+ String name;
+ Integer level;
+ Integer exp;
  Stats stats;
  List<ItemResponse> equipped;
 }
