@@ -58,7 +58,7 @@ public class InventoryFragment extends Fragment {
         },getActivity());
 
         AsyncFetchMethods.fetchPlayerInventory(inventoryResponse -> {
-
+            ((TextView) v.findViewById(R.id.inv_frag_data_gold)).setText("Gold: " + inventoryResponse.getGold());
         }, DataStorage.getInstance().getPlayerId(), getActivity());
 
     }
